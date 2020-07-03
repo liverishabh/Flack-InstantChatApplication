@@ -1,0 +1,176 @@
+body{
+    background-color: #79C7C5;
+    /* background: linear-gradient(to bottom left, #79C7C5 40%, #F9FBFF 100%); */
+}
+
+.main-font{
+    font-family: 'Roboto', sans-serif;
+}
+  
+.received_msg p, .user_msg p {
+    border-radius: 5px;
+    margin: 5px 5px 5px 5px;
+    padding: 0 10px 5px 10px;
+    max-width: 50%;
+    max-width: 50ch;
+    overflow-wrap: anywhere;
+    word-wrap: break-word;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.received_msg p .msg_user, .user_msg p .msg_user {
+    font-weight: bold;
+}
+
+.received_msg p .msg_time, .user_msg p .msg_time {
+    opacity: 0.5;
+}
+  
+#chatlist li {
+    font-size: 1.4em;
+}
+
+#chatlist li a:link {
+    color: rgba(36, 36, 36, 0.7);
+}
+
+#chatlist li a:visited {
+    color: rgba(36, 36, 36, 0.7);
+}
+
+#chatlist li a:hover {
+    color: #242424;
+    text-decoration: none;
+}
+
+#chatlist li a:active {
+    color: #242424;
+}
+  
+#chat_div {
+    margin-bottom: 20px;
+    height: 80vh;
+}
+
+#chat_div #channel_list_div, #chat_div #private_messages, #chat_div #messages_wrapper, #chat_div #messages {
+    overflow: auto;
+}
+
+#chat_div input {
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+}
+  
+#chatbox {
+    border-radius: 15px;
+    margin: 5px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.95);
+}
+  
+#chatlist {
+    border-right: 1px solid #2b2b2b;
+    overflow-x: auto;
+}
+
+#chatlist ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#chatlist li {
+    list-style: none;
+}
+
+#chatlist #channel_list_div h1 {
+    padding: 0 10px 0 10px;
+}
+
+#chatlist #channel_submit {
+    margin-top: 10px;
+}
+  
+#chatmessages #chat_msg_header {
+    padding-bottom: 5px;
+}
+
+#chatmessages #message_input_group {
+    margin: 10px 0 10px 0;
+}
+  
+.error, #user_input_error, #channel_name_error {
+    color: red;
+}
+  
+.user_msg p {
+    background-color: #FAD93E;
+    color: #242424;
+    text-align: right;
+}
+  
+.received_msg p {
+    background-color: #e6e6ea;
+    color: #242424;
+    text-align: left;
+}
+  
+#create_channel_wrapper h1 {
+    margin: 10px 0 10px 0;
+}
+  
+.form-control:focus {
+    border-color: black;
+}
+  
+#dismiss {
+    display: none;
+}
+  
+#sidebarCollapse {
+    display: none;
+}
+  
+@media only screen and (max-width: 768px) {  
+    #chatlist {
+      width: 0;
+      overflow-x: hidden;
+      height: 100%;
+      z-index: 3;
+      transition: 0.5s;
+      background: white;
+      border-right: none;
+    }
+  
+    #overlay {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2;
+      opacity: 0;
+    }
+  
+    #overlay.active {
+      display: block;
+      opacity: 1;
+      transition: all 0.5s ease-in-out;
+    }
+  
+    #dismiss {
+      display: block;
+      width: 35px;
+      height: 35px;
+    }
+  
+    #chatmessages {
+      z-index: 0;
+    }
+  
+    #sidebarCollapse {
+      display: block;
+    }
+}
+  
+/*# sourceMappingURL=style.css.map */
+  
