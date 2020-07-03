@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }else{
             document.querySelector("#login_page").style.display = "none";
         }
-
     });
 
     socket.on('alert', message => {
@@ -62,23 +61,23 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('channel created', channelname => {
         const li = document.createElement('li');
         li.innerHTML = `<buttton class="btn btn-link" data-channel="${channelname}">#${channelname}</button>`;
-        // li.innerHTML= `#${channelname}`;
         document.querySelector('#channel_list').append(li);
         const hr = document.createElement('hr');
         document.querySelector('#channel_list').append(hr);
-    });
-
-    document.querySelectorAll('button.btn-link').forEach(button => {
-        button.onclick = () => {
-            const channelname = button.dataset.channel;
-            const username = storage.getItem("username");
-            socket.emit('join channel', channelname, username);
-        };
-    });
+        buttons = document.querySelectorAll('.btn-link');
+        buttons.forEach(button => {
+            button.onclick = () => {
+                const channelname = button.dataset.channel;
+                const username = storage.getItem("username");
+                socket.emit('join channel', channelname, username);
+            }            
+        });
+    });   
 
     socket.on('channel joined', channelname => {        
         storage.setItem("current channel", channelname);
         alert(`You have joined the channel: #${channelname}`);
+        document.querySelector("#chat_msg_header").innerHTML = channelname;
     });
 
 

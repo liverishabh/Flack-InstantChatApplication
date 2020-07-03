@@ -40,6 +40,4 @@ def joinchannel(channelname, username):
 
     emit("channel joined", channelname)
 
-
-    
-    
+   
