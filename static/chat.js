@@ -72,12 +72,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 socket.emit('join channel', channelname, username);
             }            
         });
-    });   
+    });
+
+    document.querySelectorAll('.btn-link').forEach(button => {
+        button.onclick = () => {
+            const channelname = button.dataset.channel;
+            const username = storage.getItem("username");
+            socket.emit('join channel', channelname, username);
+        }
+    });
 
     socket.on('channel joined', channelname => {        
         storage.setItem("current channel", channelname);
         alert(`You have joined the channel: #${channelname}`);
         document.querySelector("#chat_msg_header").innerHTML = channelname;
+    });
+
+    document.querySelector('#message_submit').onsubmit = () => {
+        const channelname = storage.getItem("current channel");
+        const username = storage.getItem("username");
+        const message = document.querySelector('#message_input').value;
+
+        const d = new Date();
+
+        const time = d.toLocaleTimeString();
+        var date = d.toDateString();
+        date = date.slice(4,date.length);
+
+        socket.emit('send message', channelname, username, message, date, time);
+        document.querySelector('#message_input').value = "";
+        // console.log("Hi");
+        return false;
+    };
+
+    socket.on('receive message', received => {
+        const channelname = received.channelname;
+        const data = received.data;
+        const username = data[0];
+        const date = data[1];
+        const time = data[2];
+        const message = data[3];
+        console.log("Hi");
+
+        if(channelname === storage.getItem("current channel")){
+            const li = document.createElement('li');
+            li.innerHTML = `${username} says "${message}" on ${date} at ${time}`;
+            document.querySelector('#msg').append(li);
+        }
     });
 
 

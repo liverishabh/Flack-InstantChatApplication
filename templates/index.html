@@ -14,12 +14,7 @@
             To get started, please log in with a username. 
             </p>
         </div>
-        {% if users is defined %}
-            {% if username in users %}
-            <p class="text-danger"> Username <code class="text-info">{{username}}</code> is already taken! Please try another one.</p>
-            {% endif %}
-        {% endif %}
-        <form action="{{ url_for('index') }}" method="post" id="login_form">
+        <form id="login_form">
             <div class="input-group">            
                 <input type="text" class="form-control" placeholder="Enter username" id="username" name="username" required>
                 <div class="input-group-append">
@@ -45,6 +40,10 @@
                         <h2 class="container">Available Channels</h2>
                         <hr>
                         <ul id="channel_list">
+                            {% for channel in channels%}
+                                <li> <buttton class="btn btn-link" data-channel= "{{channel}}"> #{{channel}} </button> </li>
+                                <hr>                            
+                            {% endfor %}
     
                         </ul>
     
@@ -61,16 +60,23 @@
                     </button>
     
                     <h1 id="chat_msg_header"></h1>
+
+                    <hr>
     
                     <div id="messages_wrapper" class="overflow-auto flex-grow-1">
                         <div id="messages" class="overflow-auto h-100">
+                            <ul id="msg">
+
+                            </ul>
     
                         </div>
                     </div>
     
                     <div class="input-group container-fluid" id="message_input_group">
-                        <input type="text" id="message_input" class="form-control" name="message_input" placeholder="Type a message..." aria-label="Type a message" />
-                        <button type="submit" id="message_submit" class="btn btn-dark">Send</button>
+                        <form id="message_submit">
+                            <input type="text" id="message_input" class="form-control" name="message_input" placeholder="Type a message..." aria-label="Type a message" required/>
+                            <button type="submit" class="btn btn-dark">Send</button>
+                        </form>
                     </div>
     
                 </div>
@@ -96,11 +102,6 @@
                             <button type="button" class="btn btn-danger float-right" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary float-right">Create</button>
                         </form>
-                    </div>
-                    
-                    <!-- Modal footer -->
-                    <div class="modal-footer">                    
-                        
                     </div>
                     
                 </div>

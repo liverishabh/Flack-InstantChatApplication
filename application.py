@@ -1,4 +1,5 @@
 import os
+import time
 
 from flask import Flask, render_template, session, request, redirect
 from flask_socketio import SocketIO, emit
@@ -10,10 +11,11 @@ socketio = SocketIO(app)
 users = []
 channels = []
 user_channels = {} # {liverishabh:[general, study], livereeti:[general]}
+messages = {}
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", channels=channels)
 
 @socketio.on("login")
 def login(username):
@@ -40,4 +42,14 @@ def joinchannel(channelname, username):
 
     emit("channel joined", channelname)
 
-   
+@socketio.on("send message")
+def sendmessage(channelname, username, message, date, time):
+
+    if channelname not in messages.keys():
+        messages[channelname]=[]
+    
+    data = (username, date, time, message)
+    messages[channelname].append(data)
+
+    emit("receive message", {'channelname':channelname, 'data':data}, broadcast=True)
+
