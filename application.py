@@ -40,7 +40,7 @@ def joinchannel(channelname, username):
     if channelname not in user_channels[username]:
         user_channels[username].append(channelname)
 
-    emit("channel joined", channelname)
+    emit("channel joined", {'channelname':channelname, 'messages': messages})
 
 @socketio.on("send message")
 def sendmessage(channelname, username, message, date, time):
