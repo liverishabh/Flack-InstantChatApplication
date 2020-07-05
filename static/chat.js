@@ -103,29 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 let div = document.createElement('div');
                 if(username === storage.getItem("username")){
-                    div.innerHTML = `<div class="jumbotron jumbotron4"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                    div.innerHTML = `<div class="alert alert-success" role="alert"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
                 }else{
-                    div.innerHTML = `<div class="jumbotron jumbotron5"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                    div.innerHTML = `<div class="alert alert-primary" role="alert"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
                 }
                 document.querySelector('#messages').append(div);
     
             }
         }
-
-        // for (data in messages){
-        //     let username = data[0];
-        //     let date = data[1];
-        //     let time = data[2];
-        //     let message = data[3];
-
-        //     let div = document.createElement('div');
-        //     if(username === storage.getItem("username")){
-        //         div.innerHTML = `<div class="jumbotron jumbotron4"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
-        //     }else{
-        //         div.innerHTML = `<div class="jumbotron jumbotron5"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
-        //     }
-        //     document.querySelector('#messages').append(div);
-        // }
 
     });
 
@@ -136,13 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const d = new Date();
 
-        const time = d.toLocaleTimeString();
+        const time = d.toLocaleString('en-US',{ hour: 'numeric', minute: 'numeric', hour12: true })
         var date = d.toDateString();
         date = date.slice(4,date.length);
 
         socket.emit('send message', channelname, username, message, date, time);
         document.querySelector('#message_input').value = "";
-        // console.log("Hi");
         return false;
     };
 
@@ -153,19 +137,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const date = data[1];
         const time = data[2];
         const message = data[3];
-        //console.log("Hi");
 
         if(channelname === storage.getItem("current channel")){
             const div = document.createElement('div');
             if(username === storage.getItem("username")){
-                div.innerHTML = `<div class="jumbotron jumbotron4"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                div.innerHTML = `<div class="alert alert-success" role="alert"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
             }else{
-                div.innerHTML = `<div class="jumbotron jumbotron5"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                div.innerHTML = `<div class="alert alert-primary" role="alert"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
             }
             document.querySelector('#messages').append(div);
-            // const li = document.createElement('li');
-            // li.innerHTML = `${username} says "${message}" on ${date} at ${time}`;
-            // document.querySelector('#msg').append(li);
         }
     });
 
