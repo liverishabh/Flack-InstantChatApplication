@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if(storage.getItem("username")){  
         document.querySelector('#createchannel_button').style.display = "block";
         document.querySelector('#createchannel_button').innerHTML = "Create new channel";
-        document.querySelector('#welcome_user').innerHTML = "Welocme, "+storage.getItem("username")+" !";
-        document.querySelector("#logout").innerHTML = "Logout";
+        document.querySelector('#welcome_user').innerHTML = "Welcome, "+storage.getItem("username")+" !";
+        // document.querySelector("#logout").innerHTML = "Logout";
     }
 
     if(storage.getItem("current channel")){
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#createchannel_button').style.display = "block";
         document.querySelector('#createchannel_button').innerHTML = "Create new channel";
         document.querySelector('#welcome_user').innerHTML = "Welocme, "+storage.getItem("username")+" !";
-        document.querySelector("#logout").innerHTML = "Logout";
+        // document.querySelector("#logout").innerHTML = "Logout";
     });
 
     document.querySelector('#createchannel').onsubmit = () => {           
@@ -110,9 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 let div = document.createElement('div');
                 if(username === storage.getItem("username")){
-                    div.innerHTML = `<div class="alert alert-success" role="alert" style="text-align:right; float:right; width: 60%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                    div.innerHTML = `<div class="alert alert-success" role="alert" style="text-align:right; float:right; width: 70%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
                 }else{
-                    div.innerHTML = `<div class="alert alert-primary" role="alert" style="text-align:left; float:left; width: 60%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                    div.innerHTML = `<div class="alert alert-primary" role="alert" style="text-align:left; float:left; width: 70%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
                 }
                 document.querySelector('#messages').append(div);
     
@@ -152,13 +152,38 @@ document.addEventListener('DOMContentLoaded', () => {
         if(channelname === storage.getItem("current channel")){
             const div = document.createElement('div');
             if(username === storage.getItem("username")){
-                div.innerHTML = `<div class="alert alert-success" role="alert" style="text-align:right; float:right; width: 60%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                div.innerHTML = `<div class="alert alert-success" role="alert" style="text-align:right; float:right; width: 70%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
             }else{
-                div.innerHTML = `<div class="alert alert-primary" role="alert" style="text-align:left; float:left; width: 60%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                div.innerHTML = `<div class="alert alert-primary" role="alert" style="text-align:left; float:left; width: 70%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
             }
             document.querySelector('#messages').append(div);
         }
     });
+
+    document.querySelector('#sidebarCollapse').onclick = () => {
+        document.querySelector('#chatlist').style.width = "70vw";
+    };
+
+    document.querySelector('#dismiss').onclick = () => {
+        document.querySelector('#chatlist').style.width = "0";
+    };
+
+    window.onresize = function(){
+        if (window.innerWidth <= 768){
+            document.querySelector('#chatlist').style.width = "0";
+            document.querySelector('#chatlist').style.borderRight = "none";
+            document.querySelector('#sidebarCollapse').onclick = () => {
+                document.querySelector('#chatlist').style.width = "70vw";
+            };
+        
+            document.querySelector('#dismiss').onclick = () => {
+                document.querySelector('#chatlist').style.width = "0";
+            };
+        }else{
+            document.querySelector('#chatlist').style.width = "350px";
+            document.querySelector('#chatlist').style.borderRight = "1px solid #2b2b2b";
+        }
+    };
 
 
 });
