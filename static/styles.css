@@ -84,10 +84,12 @@ body{
 
 #chatlist li {
     list-style: none;
+    text-align: center;
 }
 
-#chatlist #channel_list_div h1 {
-    padding: 0 10px 0 10px;
+#chatlist #channel_list_div h3 {
+    text-align:center;
+    padding: 5px 0 0 0;
 }
 
 #chatlist #channel_submit {
@@ -95,7 +97,8 @@ body{
 }
   
 #chatmessages #chat_msg_header {
-    padding-bottom: 5px;
+    border-bottom: 1px solid #2b2b2b;    
+    text-align: center;
 }
 
 #chatmessages #message_input_group {
