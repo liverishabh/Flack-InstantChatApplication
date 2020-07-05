@@ -56,6 +56,10 @@ body{
     overflow: auto;
 }
 
+#messages_wrapper{
+    max-width: 50vw;
+}
+
 #chat_div input {
     box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.08);
 }
@@ -169,6 +173,10 @@ body{
   
     #sidebarCollapse {
       display: block;
+    }
+
+    #messages_wrapper{
+        max-width: 90vw;
     }
 }
   

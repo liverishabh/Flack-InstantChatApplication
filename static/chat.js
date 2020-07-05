@@ -103,9 +103,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
                 let div = document.createElement('div');
                 if(username === storage.getItem("username")){
-                    div.innerHTML = `<div class="alert alert-success" role="alert"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                    div.innerHTML = `<div class="alert alert-success" role="alert" style="text-align:right; float:right; width: 60%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
                 }else{
-                    div.innerHTML = `<div class="alert alert-primary" role="alert"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                    div.innerHTML = `<div class="alert alert-primary" role="alert" style="text-align:left; float:left; width: 60%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
                 }
                 document.querySelector('#messages').append(div);
     
@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var date = d.toDateString();
         date = date.slice(4,date.length);
 
+        console.log(channelname);
         socket.emit('send message', channelname, username, message, date, time);
         document.querySelector('#message_input').value = "";
         return false;
@@ -141,9 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if(channelname === storage.getItem("current channel")){
             const div = document.createElement('div');
             if(username === storage.getItem("username")){
-                div.innerHTML = `<div class="alert alert-success" role="alert"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                div.innerHTML = `<div class="alert alert-success" role="alert" style="text-align:right; float:right; width: 60%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
             }else{
-                div.innerHTML = `<div class="alert alert-primary" role="alert"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
+                div.innerHTML = `<div class="alert alert-primary" role="alert" style="text-align:left; float:left; width: 60%; overflow-wrap: anywhere; word-wrap: break-word;"><strong> ${username}: </strong> <div> ${message} </div> <small> ${date} ${time} </small>`;
             }
             document.querySelector('#messages').append(div);
         }
