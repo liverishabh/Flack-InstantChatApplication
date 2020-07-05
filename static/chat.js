@@ -4,15 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     
     var storage = window.localStorage;
 
-    if(storage.getItem("username")){    
+    if(storage.getItem("username")){  
+        document.querySelector('#createchannel_button').style.display = "block";
         document.querySelector('#createchannel_button').innerHTML = "Create new channel";
         document.querySelector('#welcome_user').innerHTML = "Welocme, "+storage.getItem("username")+" !";
         document.querySelector("#logout").innerHTML = "Logout";
     }
 
+    if(storage.getItem("current channel")){
+        storage.removeItem("current channel");
+    }
+
     socket.on('connect', () => {
         if(!storage.getItem("username")){
             document.querySelector("#chat_page").style.display = "none";
+            document.querySelector('#createchannel_button').style.display = "none";
         }else{
             document.querySelector("#login_page").style.display = "none";
         }
@@ -39,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         storage.setItem("username", username);
         document.querySelector("#login_page").style.display = "none";
         document.querySelector("#chat_page").style.display = "block";
+        document.querySelector('#createchannel_button').style.display = "block";
         document.querySelector('#createchannel_button').innerHTML = "Create new channel";
         document.querySelector('#welcome_user').innerHTML = "Welocme, "+storage.getItem("username")+" !";
         document.querySelector("#logout").innerHTML = "Logout";
@@ -93,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const messages = data.messages[data.channelname];
-        console.log(messages);
+        //console.log(messages);
         if(typeof messages !== 'undefined'){
             for (var i=0; i<messages.length; i++){
                 let username = messages[i][0];
@@ -124,10 +131,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const time = d.toLocaleString('en-US',{ hour: 'numeric', minute: 'numeric', hour12: true })
         var date = d.toDateString();
         date = date.slice(4,date.length);
-
-        console.log(channelname);
-        socket.emit('send message', channelname, username, message, date, time);
-        document.querySelector('#message_input').value = "";
+        
+        if (channelname !== null){
+            socket.emit('send message', channelname, username, message, date, time);
+            document.querySelector('#message_input').value = "";            
+        }else{
+            alert("You need to join a channel before sending a message");
+        }
         return false;
     };
 

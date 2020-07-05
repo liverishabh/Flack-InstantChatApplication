@@ -27,9 +27,12 @@ def login(username):
         emit("login", username)
 
 @socketio.on("create channel")
-def createchannel(channelname):    
-    channels.append(channelname)
-    emit("channel created", channelname, broadcast=True)
+def createchannel(channelname):
+    if channelname in channels:
+        emit("alert", f"Channelname {channelname} already exists!")
+    else:
+        channels.append(channelname)
+        emit("channel created", channelname, broadcast=True)
 
 @socketio.on("join channel")
 def joinchannel(channelname, username):
